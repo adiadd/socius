@@ -1,18 +1,16 @@
-"use client"
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+"use client";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   return (
     <button
+      type="button"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="relative h-9 w-9 rounded-md border border-transparent bg-transparent hover:bg-accent hover:text-accent-foreground"
+      className="relative h-9 w-9 rounded-md border border-transparent bg-transparent hover:bg-accent hover:text-accent-foreground transition-all duration-200"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      style={{
-        "--transition-duration": "200ms",
-      }}
     >
       <div className="relative h-full w-full">
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform transition-all duration-200">
@@ -21,6 +19,5 @@ export function ThemeToggle() {
         </span>
       </div>
     </button>
-  )
+  );
 }
-
