@@ -6,7 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"lint": "bunx biome lint ",
 		"bump-deps": "bunx npm-check-updates --deep -u -x react-day-picker,tailwindcss && bun install",
 		"bump-ui": "bunx shadcn@latest add --all --overwrite -c packages/design-system",
 		"biome:check": "bunx biome check --write .",
