@@ -1,6 +1,7 @@
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CustomLink } from "@/components/ui/custom-link";
-import { BrainCircuit } from "lucide-react";
+import { siteConfig } from "@/config/site";
+import { BrainCircuit, Github, Twitter } from "lucide-react";
 
 export default function HomePage() {
 	// Update this value when the page changes
@@ -12,6 +13,11 @@ export default function HomePage() {
 		month: "long",
 		day: "numeric",
 	}).format(lastUpdated);
+
+	const iconComponents = {
+		github: Github,
+		twitter: Twitter,
+	};
 
 	return (
 		<>
@@ -37,11 +43,11 @@ export default function HomePage() {
 
 			{/* mission section */}
 			<div className="border-b border-black dark:border-white p-6">
-				<div className="flex">
-					<div className="w-1/4 pr-4">
+				<div className="flex flex-col md:flex-row">
+					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
 						<p className="text-secondary font-medium">mission</p>
 					</div>
-					<div className="w-3/4">
+					<div className="w-full md:w-3/4">
 						<p>
 							to further ai evaluations by focusing on how it makes decisions to
 							solve real world human issues; for the betterment of society
@@ -52,11 +58,11 @@ export default function HomePage() {
 
 			{/* philosophy section */}
 			<div className="border-b border-black dark:border-white p-6">
-				<div className="flex">
-					<div className="w-1/4 pr-4">
+				<div className="flex flex-col md:flex-row">
+					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
 						<p className="text-secondary font-medium">philosophy</p>
 					</div>
-					<div className="w-3/4">
+					<div className="w-full md:w-3/4">
 						<p>
 							create novel benchmarks that help humans evaluate ai when asked to
 							solve complex human challenges
@@ -73,11 +79,11 @@ export default function HomePage() {
 
 			{/* approach section */}
 			<div className="border-b border-black dark:border-white p-6">
-				<div className="flex">
-					<div className="w-1/4 pr-4">
+				<div className="flex flex-col md:flex-row">
+					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
 						<p className="text-secondary font-medium">approach</p>
 					</div>
-					<div className="w-3/4">
+					<div className="w-full md:w-3/4">
 						<p>
 							offer evaluation methods that measure different angles of ai's
 							capacity to understand, respond to, and help address intricate
@@ -132,11 +138,27 @@ export default function HomePage() {
 			</div>
 
 			{/* footer section */}
-			<div className="p-6 flex justify-between text-muted-foreground">
-				<div>
+			<div className="p-6 grid grid-cols-3 items-center text-muted-foreground">
+				<div className="text-left">
 					<p>version: pre-alpha</p>
 				</div>
-				<div>
+				<div className="flex justify-center gap-4">
+					{siteConfig.socials.map((social) => {
+						const IconComponent =
+							iconComponents[social.icon as keyof typeof iconComponents];
+						return (
+							<CustomLink
+								key={social.name}
+								href={social.url}
+								external={false}
+								aria-label={social.name}
+							>
+								{IconComponent && <IconComponent className="h-5 w-5" />}
+							</CustomLink>
+						);
+					})}
+				</div>
+				<div className="text-center md:text-right">
 					<p>updated: {formattedDate}</p>
 				</div>
 			</div>
