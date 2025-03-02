@@ -8,7 +8,9 @@
 		"start": "next start",
 		"lint": "next lint",
 		"bump-deps": "bunx npm-check-updates --deep -u -x react-day-picker,tailwindcss && bun install",
-		"bump-ui": "bunx shadcn@latest add --all --overwrite -c packages/design-system"
+		"bump-ui": "bunx shadcn@latest add --all --overwrite -c packages/design-system",
+		"biome:check": "bunx biome check --write .",
+		"biome:format": "biome format --write ."
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^4.1.2",
