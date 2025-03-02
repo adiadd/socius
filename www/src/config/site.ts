@@ -1,6 +1,9 @@
 export const siteConfig = {
 	name: "anthrobench",
-	description: "benchmarking ai for humanity's challenges",
+	description: {
+		short: "benchmarking ai for humanity's challenges",
+		long: "benchmarking ai for humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
+	},
 	socials: [
 		{
 			name: "GitHub",
@@ -34,5 +37,12 @@ export const siteConfig = {
 		"responsible ai",
 		"ai ethics",
 		"ai research",
+		"collaborative problem-solving",
+		"ai assessment",
+		"human challenges",
+		"ai for humanity",
+		"social impact ai",
+		"ethical technology",
+		"ai performance metrics",
 	],
 };

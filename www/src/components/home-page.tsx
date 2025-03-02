@@ -1,5 +1,6 @@
 import { BrainCircuit, Github, Twitter } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { OrganizationJsonLd } from "./schema/organization-schema";
 import { ThemeToggle } from "./theme-toggle";
 import { CustomLink } from "./ui/custom-link";
 
@@ -21,6 +22,9 @@ export default function HomePage() {
 
 	return (
 		<>
+			{/* Add Schema.org structured data */}
+			<OrganizationJsonLd />
+
 			{/* header section */}
 			<div className="border-b border-black dark:border-white p-6">
 				<div className="flex items-center justify-between">

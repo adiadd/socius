@@ -1,0 +1,16 @@
+{
+	"name": "anthrobench",
+	"short_name": "anthrobench",
+	"description": "benchmarking ai for humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#FFFFFF",
+	"theme_color": "#000000",
+	"icons": [
+		{
+			"src": "/favicon.ico",
+			"sizes": "64x64",
+			"type": "image/x-icon"
+		}
+	]
+}

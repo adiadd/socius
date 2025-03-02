@@ -13,7 +13,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
-	description: siteConfig.description,
+	description: siteConfig.description.long,
 	metadataBase: new URL(siteConfig.url),
 	keywords: siteConfig.keywords,
 	authors: [{ name: siteConfig.creator.name, url: siteConfig.creator.url }],
@@ -39,17 +39,20 @@ export const metadata: Metadata = {
 		locale: siteConfig.locale,
 		url: siteConfig.url,
 		title: siteConfig.name,
-		description: siteConfig.description,
+		description: siteConfig.description.short,
 		siteName: siteConfig.name,
 		images: [{ url: "/opengraph-image.png" }],
 	},
 	twitter: {
 		card: "summary_large_image",
 		title: siteConfig.name,
-		description: siteConfig.description,
+		description: siteConfig.description.short,
 		creator: siteConfig.creator.twitter,
 		site: siteConfig.creator.twitter,
 		images: [{ url: "/twitter-image.png" }],
+	},
+	alternates: {
+		canonical: siteConfig.url,
 	},
 };
 
