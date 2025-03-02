@@ -6,34 +6,34 @@ import type React from "react";
 import "./globals.css";
 
 const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-space-mono",
+	weight: ["400", "700"],
+	subsets: ["latin"],
+	variable: "--font-space-mono",
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
+	title: siteConfig.name,
+	description: siteConfig.description,
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${spaceMono.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="min-h-screen bg-background text-black dark:text-white font-mono text-sm">
-            <div className="max-w-4xl mx-auto p-4">
-              <div className="border border-black dark:border-white">
-                {children}
-              </div>
-            </div>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en" suppressHydrationWarning>
+			<body className={`${spaceMono.variable}`}>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+					<div className="min-h-screen bg-background text-black dark:text-white font-mono text-sm">
+						<div className="max-w-4xl mx-auto p-4">
+							<div className="border border-black dark:border-white">
+								{children}
+							</div>
+						</div>
+					</div>
+				</ThemeProvider>
+			</body>
+		</html>
+	);
 }
