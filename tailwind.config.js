@@ -55,6 +55,10 @@ module.exports = {
 					DEFAULT: "hsl(var(--popover))",
 					foreground: "hsl(var(--popover-foreground))",
 				},
+				link: {
+					DEFAULT: "hsl(var(--link))",
+					hover: "hsl(var(--link-hover))",
+				},
 			},
 			borderRadius: {
 				lg: "var(--radius)",

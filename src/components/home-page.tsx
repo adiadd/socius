@@ -1,7 +1,18 @@
 import { ThemeToggle } from "@/components/theme-toggle";
+import { CustomLink } from "@/components/ui/custom-link";
 import { BrainCircuit } from "lucide-react";
 
 export default function HomePage() {
+	// Update this value when the page changes
+	// Use explicit year, month (0-based), day parameters to avoid timezone issues
+	const lastUpdated = new Date(2025, 2, 1); // March is month 2 (0-based index)
+
+	const formattedDate = new Intl.DateTimeFormat(undefined, {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	}).format(lastUpdated);
+
 	return (
 		<>
 			{/* header section */}
@@ -14,7 +25,13 @@ export default function HomePage() {
 					<ThemeToggle />
 				</div>
 				<p className="mt-2 text-muted-foreground">
-					anthropocentric benchmarks for AI
+					<CustomLink
+						href="https://www.merriam-webster.com/dictionary/anthropocentric"
+						external={true}
+					>
+						anthropocentric
+					</CustomLink>{" "}
+					benchmarks for ai
 				</p>
 			</div>
 
@@ -26,10 +43,8 @@ export default function HomePage() {
 					</div>
 					<div className="w-3/4">
 						<p>
-							to advance ai evaluation by focusing on humanity's challenges,
-							creating benchmarks that assess ai systems' ability to think
-							critically, ethically, and collaboratively when addressing
-							real-world human issues.
+							to further ai evaluations by focusing on how it makes decisions to
+							solve real world human issues; for the betterment of society
 						</p>
 					</div>
 				</div>
@@ -43,14 +58,14 @@ export default function HomePage() {
 					</div>
 					<div className="w-3/4">
 						<p>
-							moving beyond traditional ai metrics to evaluate ai thinking when
-							solving complex human challenges.
+							create novel benchmarks that help humans evaluate ai when asked to
+							solve complex human challenges
 						</p>
 						<ul className="list-disc pl-5 mt-4 space-y-2">
-							<li>human-centered technology</li>
-							<li>ethical innovation</li>
-							<li>collaborative progress</li>
-							<li>global impact</li>
+							<li>humanity-centered topics</li>
+							<li>ethical decision making</li>
+							<li>societal implications</li>
+							<li>future focused</li>
 						</ul>
 					</div>
 				</div>
@@ -64,10 +79,9 @@ export default function HomePage() {
 					</div>
 					<div className="w-3/4">
 						<p>
-							anthrobench offers evaluation methodologies that measure what
-							truly matters: ai's capacity to understand, respond to, and help
-							resolve complex human challenges with nuance, empathy, and ethical
-							consideration.
+							offer evaluation methods that measure different angles of ai's
+							capacity to understand, respond to, and help address intricate
+							societal matters with nuance, empathy, and ethical consideration
 						</p>
 					</div>
 				</div>
@@ -120,10 +134,10 @@ export default function HomePage() {
 			{/* footer section */}
 			<div className="p-6 flex justify-between text-muted-foreground">
 				<div>
-					<p>version: beta</p>
+					<p>version: pre-alpha</p>
 				</div>
 				<div>
-					<p>updated: {new Date().toISOString().split("T")[0]}</p>
+					<p>updated: {formattedDate}</p>
 				</div>
 			</div>
 		</>
