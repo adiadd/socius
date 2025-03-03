@@ -6,13 +6,15 @@ interface CustomLinkProps
 	extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 	href: string;
 	external?: boolean;
+	showExternalIndicator?: boolean;
 	className?: string;
 	children: React.ReactNode;
 }
 
 export function CustomLink({
 	href,
-	external = false,
+	external = true,
+	showExternalIndicator = false,
 	className,
 	children,
 	...props
@@ -25,7 +27,7 @@ export function CustomLink({
 		: {};
 
 	// Special visual indicator for external links
-	const externalIndicator = external ? (
+	const externalIndicator = showExternalIndicator ? (
 		<span className="inline-block ml-1">↗</span>
 	) : null;
 

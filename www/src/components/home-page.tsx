@@ -38,6 +38,7 @@ export default function HomePage() {
 					<CustomLink
 						href="https://www.merriam-webster.com/dictionary/anthropocentric"
 						external={true}
+						showExternalIndicator={true}
 					>
 						anthropocentric
 					</CustomLink>{" "}
@@ -154,7 +155,8 @@ export default function HomePage() {
 							<CustomLink
 								key={social.name}
 								href={social.url}
-								external={false}
+								external={true}
+								showExternalIndicator={false}
 								aria-label={social.name}
 							>
 								{IconComponent && <IconComponent className="h-5 w-5" />}
