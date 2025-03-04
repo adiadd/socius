@@ -1,6 +1,6 @@
-# AnthroΒench Documentation
+# Socius Documentation
 
-This directory contains documentation for the AnthroΒench project.
+This directory contains documentation for the Socius project. Socius is a collection of scenarios for ai to evaluate how it makes decisions to solve real world human issues.
 
 ## Contents
 

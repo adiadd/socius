@@ -30,7 +30,7 @@ export default function HomePage() {
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-3">
 						<BrainCircuit className="h-6 w-6" />
-						<h1 className="text-xl">anthrobench</h1>
+						<h1 className="text-xl">socius</h1>
 					</div>
 					<ThemeToggle />
 				</div>
@@ -42,7 +42,7 @@ export default function HomePage() {
 					>
 						anthropocentric
 					</CustomLink>{" "}
-					benchmarks for ai
+					scenarios for ai
 				</p>
 			</div>
 

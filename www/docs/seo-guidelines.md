@@ -1,6 +1,6 @@
-# AnthroΒench SEO Guidelines
+# Socius SEO Guidelines
 
-This document outlines the SEO best practices for the AnthroΒench repository, with a focus on what to do when adding new pages.
+This document outlines the SEO best practices for the Socius repository, with a focus on what to do when adding new pages.
 
 ## When Adding a New Page
 

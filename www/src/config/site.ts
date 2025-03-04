@@ -1,13 +1,13 @@
 export const siteConfig = {
-	name: "anthrobench",
+	name: "socius",
 	description: {
-		short: "benchmarking ai for humanity's challenges",
-		long: "benchmarking ai for humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
+		short: "scenarios for ai addressing humanity's challenges",
+		long: "scenarios for ai addressing humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
 	},
 	socials: [
 		{
 			name: "GitHub",
-			url: "https://github.com/adiadd/anthrobench",
+			url: "https://github.com/adiadd/socius",
 			icon: "github",
 		},
 		{
@@ -22,11 +22,11 @@ export const siteConfig = {
 		twitter: "@agnilabs",
 	},
 	locale: "en_US",
-	url: "https://anthrobench.agnilabs.xyz",
+	url: "https://socius.agnilabs.xyz",
 	keywords: [
-		"anthrobench",
+		"socius",
 		"agnilabs",
-		"ai benchmarking",
+		"ai scenarios",
 		"ethical ai",
 		"human-centered ai",
 		"anthropocentric",

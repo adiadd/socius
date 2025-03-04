@@ -1,7 +1,7 @@
 {
-	"name": "anthrobench",
-	"short_name": "anthrobench",
-	"description": "benchmarking ai for humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
+	"name": "socius",
+	"short_name": "socius",
+	"description": "scenarios for ai addressing humanity's challenges - evaluating artificial intelligence on ethical reasoning, critical thinking, and cultural awareness to address real-world human problems",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#FFFFFF",
