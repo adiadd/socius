@@ -72,7 +72,7 @@ const apiKeys = {
 // Run a specific prompt through a model
 const result = await runPrompt(
   'prompts/ethics/trolley-problem.md',
-  'claude-3',
+  'claude-3.5-sonnet',
   apiKeys
 );
 

@@ -7,7 +7,8 @@
     "start": "ts-node run-prompt.ts",
     "list": "ts-node run-prompt.ts list",
     "models": "ts-node run-prompt.ts models",
-    "run": "ts-node run-prompt.ts"
+    "run": "ts-node run-prompt.ts",
+    "run-all": "ts-node run-prompt.ts run-all"
   },
   "keywords": [
     "ai",

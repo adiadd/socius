@@ -117,6 +117,11 @@ export async function runPrompt(
 function saveResult(result: RunResult): string {
     const { promptPath, modelId, timestamp } = result;
 
+    // Extract relative path from the prompts directory
+    const promptsDir = path.join(process.cwd(), 'prompts');
+    const relativePath = path.relative(promptsDir, promptPath);
+    const relativeDir = path.dirname(relativePath);
+
     // Extract scenario name from prompt path
     const scenarioName = path.basename(promptPath, path.extname(promptPath));
 
@@ -124,15 +129,15 @@ function saveResult(result: RunResult): string {
     const resultDir = path.join(
         process.cwd(),
         'results',
+        relativeDir,  // Preserve the subdirectory structure (e.g., 'ethics')
         scenarioName,
         modelId
     );
     fs.mkdirSync(resultDir, { recursive: true });
 
-    // Use prompt path for filename (without extension)
-    // Replace path separators with dashes for valid filename
-    const promptBaseName = path.basename(promptPath, path.extname(promptPath));
-    const resultPath = path.join(resultDir, `${promptBaseName}.json`);
+    // Add timestamp to filename for unique results
+    const dateStr = new Date(timestamp).toISOString().split('T')[0]; // YYYY-MM-DD format
+    const resultPath = path.join(resultDir, `${dateStr}.json`);
 
     // Write result to file
     fs.writeFileSync(

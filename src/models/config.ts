@@ -19,10 +19,10 @@ export const modelConfigs: Record<string, ModelConfig> = {
         maxTokens: 4000,
         temperature: 0.7
     },
-    "claude-3": {
+    "claude-3.5-sonnet": {
         name: "Claude 3 Opus",
         provider: "Anthropic",
-        version: "claude-3-opus-20240229",
+        version: "claude-3-5-sonnet-latest",
         maxTokens: 4000,
         temperature: 0.7
     },

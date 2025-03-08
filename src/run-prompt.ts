@@ -3,10 +3,12 @@
  * Script to run a prompt through a model from the command line
  * 
  * Usage:
- * ts-node run-prompt.ts <prompt-path> <model-id>
+ * ts-node run-prompt.ts <prompt-path> [model-id]
+ * ts-node run-prompt.ts run-all [model-id]
  * 
  * Example:
  * ts-node run-prompt.ts prompts/ethics/trolley-problem.md gpt-4
+ * ts-node run-prompt.ts run-all gpt-4
  */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -44,9 +46,58 @@ async function main() {
         return;
     }
 
+    // Run all prompts if requested
+    if (args[0] === 'run-all') {
+        const modelId = args[1] || 'gpt-4'; // Default to GPT-4 if not specified
+        console.log(`Running all prompts with model: ${modelId}`);
+
+        const prompts = listAllPrompts();
+        console.log(`Found ${prompts.length} prompts to run`);
+
+        for (let i = 0; i < prompts.length; i++) {
+            const promptPath = prompts[i];
+            const relativePath = path.relative(process.cwd(), promptPath);
+            console.log(`\n[${i + 1}/${prompts.length}] Running prompt: ${relativePath}`);
+
+            try {
+                const result = await runPrompt(promptPath, modelId, apiKeys);
+
+                console.log(`- Model: ${result.modelConfig.name}`);
+                console.log(`- Time: ${result.elapsedTimeMs / 1000}s`);
+
+                if (result.response.usage) {
+                    console.log('- Tokens used:');
+                    if (result.response.usage.prompt_tokens) {
+                        console.log(`  Prompt: ${result.response.usage.prompt_tokens}`);
+                        console.log(`  Completion: ${result.response.usage.completion_tokens}`);
+                        console.log(`  Total: ${result.response.usage.total_tokens}`);
+                    } else if (result.response.usage.input_tokens) {
+                        console.log(`  Input: ${result.response.usage.input_tokens}`);
+                        console.log(`  Output: ${result.response.usage.output_tokens}`);
+                        console.log(`  Total: ${result.response.usage.input_tokens + result.response.usage.output_tokens}`);
+                    }
+                }
+
+                // Extract the relative path from the prompts directory for display
+                const promptsDir = path.join(process.cwd(), 'prompts');
+                const promptRelativePath = path.relative(promptsDir, promptPath);
+                const relativeDir = path.dirname(promptRelativePath);
+                const scenarioName = path.basename(promptPath, path.extname(promptPath));
+
+                console.log(`- Results saved to: results/${relativeDir}/${scenarioName}/${modelId}/`);
+            } catch (error) {
+                console.error(`Error running prompt ${relativePath}:`, error);
+            }
+        }
+
+        console.log('\nFinished running all prompts');
+        return;
+    }
+
     // Check for required arguments
     if (args.length < 1) {
         console.log('Usage: ts-node run-prompt.ts <prompt-path> [model-id]');
+        console.log('       ts-node run-prompt.ts run-all [model-id]');
         console.log('       ts-node run-prompt.ts list');
         console.log('       ts-node run-prompt.ts models');
         return;
@@ -61,7 +112,19 @@ async function main() {
 
         const result = await runPrompt(promptPath, modelId, apiKeys);
 
-        console.log('\nResults saved to:', path.basename(result.promptPath, '.md'));
+        // Extract the relative path from the prompts directory for display
+        const promptsDir = path.join(process.cwd(), 'prompts');
+        let resultDisplay = path.basename(result.promptPath, '.md');
+
+        // If the prompt is in the prompts directory, show the relative path
+        if (result.promptPath.includes(promptsDir)) {
+            const promptRelativePath = path.relative(promptsDir, result.promptPath);
+            const relativeDir = path.dirname(promptRelativePath);
+            const scenarioName = path.basename(result.promptPath, path.extname(result.promptPath));
+            resultDisplay = `${relativeDir}/${scenarioName}`;
+        }
+
+        console.log('\nResults saved to:', resultDisplay);
         console.log(`- Model: ${result.modelConfig.name}`);
         console.log(`- Time: ${result.elapsedTimeMs / 1000}s`);
 
@@ -94,7 +157,7 @@ async function main() {
         // Print first 200 characters of response
         console.log('\nResponse preview:');
         console.log(responseText.slice(0, 200) + (responseText.length > 200 ? '...' : ''));
-        console.log(`\nFull response saved to results/${path.basename(promptPath, '.md')}/${modelId}/`);
+        console.log(`\nFull response saved to results/${resultDisplay}/${modelId}/`);
 
     } catch (error) {
         console.error('Error running prompt:', error);

@@ -30,8 +30,8 @@ export function extractResponseContent(modelProvider: string, response: any): st
             // For Claude responses
             if (response.content && Array.isArray(response.content)) {
                 return response.content
-                    .filter(part => part.type === 'text')
-                    .map(part => part.text)
+                    .filter((part: any) => part.type === 'text')
+                    .map((part: any) => part.text)
                     .join('');
             }
             return '';
@@ -107,10 +107,37 @@ export function formatResult(resultPath: string): FormattedResult {
 /**
  * Read all result files for a scenario
  */
-export function getScenarioResults(scenarioName: string): FormattedResult[] {
+export function getScenarioResults(scenarioPath: string): FormattedResult[] {
     const results: FormattedResult[] = [];
 
-    const resultsDir = path.join(process.cwd(), 'results', scenarioName);
+    // Handle both category/scenario format and just scenario name
+    let resultsDir;
+    if (scenarioPath.includes('/')) {
+        // Full path provided (e.g., "ethics/trolley-problem")
+        resultsDir = path.join(process.cwd(), 'results', scenarioPath);
+    } else {
+        // Just scenario name, need to search in all categories
+        const baseResultsDir = path.join(process.cwd(), 'results');
+
+        // Find all instances of this scenario name in any category
+        if (fs.existsSync(baseResultsDir)) {
+            const categories = fs.readdirSync(baseResultsDir)
+                .filter(item => fs.statSync(path.join(baseResultsDir, item)).isDirectory());
+
+            for (const category of categories) {
+                const categoryDir = path.join(baseResultsDir, category);
+                const scenarios = fs.readdirSync(categoryDir)
+                    .filter(item => fs.statSync(path.join(categoryDir, item)).isDirectory());
+
+                if (scenarios.includes(scenarioPath)) {
+                    const scenarioResults = getScenarioResults(`${category}/${scenarioPath}`);
+                    results.push(...scenarioResults);
+                }
+            }
+        }
+
+        return results;
+    }
 
     if (!fs.existsSync(resultsDir)) {
         return results;
