@@ -129,9 +129,10 @@ function saveResult(result: RunResult): string {
     );
     fs.mkdirSync(resultDir, { recursive: true });
 
-    // Create filename from timestamp
-    const timeStr = timestamp.replace(/[:.]/g, '-');
-    const resultPath = path.join(resultDir, `${timeStr}.json`);
+    // Use prompt path for filename (without extension)
+    // Replace path separators with dashes for valid filename
+    const promptBaseName = path.basename(promptPath, path.extname(promptPath));
+    const resultPath = path.join(resultDir, `${promptBaseName}.json`);
 
     // Write result to file
     fs.writeFileSync(
