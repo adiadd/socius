@@ -81,7 +81,7 @@ console.log(result);
 
 ## Using the CLI
 
-Socius now includes a command-line interface for easier interaction:
+socius now includes a command-line interface for easier interaction:
 
 ```bash
 # Run the CLI in interactive mode (default)

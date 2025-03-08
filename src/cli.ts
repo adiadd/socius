@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Socius CLI - A command-line interface for running AI prompts
+ * socius CLI - anthropocentric scenarios for ai
  */
 import chalk from 'chalk';
 import { Command } from 'commander';
@@ -71,7 +71,7 @@ function groupPromptsByCategory(prompts: string[]): Record<string, string[]> {
 // CLI Configuration
 program
     .name('socius')
-    .description('Socius CLI - Run AI prompts and scenarios')
+    .description('socius CLI - anthropocentric scenarios for ai')
     .version('0.1.0');
 
 // Run command
@@ -82,7 +82,7 @@ program
     .option('-m, --model <model>', 'Model ID to use', defaultModel)
     .option('-a, --all', 'Run all prompts')
     .action(async (options: { prompt?: string; model: string; all?: boolean }) => {
-        console.log(chalk.bold.blue('🧠 Socius - Running prompts'));
+        console.log(chalk.bold.blue('🧠 socius - Running prompts'));
 
         // Check API keys
         const keyCheck = checkApiKeys();
@@ -275,7 +275,7 @@ program
     .command('list')
     .description('List available prompts')
     .action(() => {
-        console.log(chalk.bold.blue('🧠 Socius - Available prompts\n'));
+        console.log(chalk.bold.blue('🧠 socius - Available prompts\n'));
 
         const prompts = listAllPrompts();
         const categories = groupPromptsByCategory(prompts);
@@ -298,7 +298,7 @@ program
     .command('models')
     .description('List available models')
     .action(() => {
-        console.log(chalk.bold.blue('🧠 Socius - Available models\n'));
+        console.log(chalk.bold.blue('🧠 socius - Available models\n'));
 
         // Group models by provider
         const modelsByProvider: Record<string, ModelId[]> = {};
@@ -343,7 +343,7 @@ program
     .command('check-keys')
     .description('Check if API keys are configured')
     .action(() => {
-        console.log(chalk.bold.blue('🧠 Socius - API Key Check\n'));
+        console.log(chalk.bold.blue('🧠 socius - API Key Check\n'));
 
         const keyCheck = checkApiKeys();
 
@@ -376,7 +376,7 @@ program
     .command('create')
     .description('Create a new prompt file')
     .action(async () => {
-        console.log(chalk.bold.blue('🧠 Socius - Create New Prompt\n'));
+        console.log(chalk.bold.blue('🧠 socius - Create New Prompt\n'));
 
         // Get the list of existing categories (directories in prompts folder)
         const promptsDir = path.join(process.cwd(), 'prompts');
@@ -474,7 +474,7 @@ program
     .alias('i')
     .description('Start an interactive CLI session')
     .action(async () => {
-        console.log(chalk.bold.blue('🧠 Socius - Interactive CLI Mode\n'));
+        console.log(chalk.bold.blue('🧠 socius - Interactive CLI Mode\n'));
         console.log(chalk.blue('Type "exit" or press Ctrl+C to quit.\n'));
 
         let running = true;
@@ -529,7 +529,7 @@ program
 
 // Implement handlers for each command
 async function handleRunCommand() {
-    console.log(chalk.bold.blue('🧠 Socius - Running prompts'));
+    console.log(chalk.bold.blue('🧠 socius - Running prompts'));
 
     // Check API keys
     const keyCheck = checkApiKeys();
@@ -719,7 +719,7 @@ async function handleRunCommand() {
 }
 
 async function handleListPromptsCommand() {
-    console.log(chalk.bold.blue('🧠 Socius - Available prompts\n'));
+    console.log(chalk.bold.blue('🧠 socius - Available prompts\n'));
 
     const prompts = listAllPrompts();
     const categories = groupPromptsByCategory(prompts);
@@ -738,7 +738,7 @@ async function handleListPromptsCommand() {
 }
 
 async function handleListModelsCommand() {
-    console.log(chalk.bold.blue('🧠 Socius - Available models\n'));
+    console.log(chalk.bold.blue('🧠 socius - Available models\n'));
 
     // Group models by provider
     const modelsByProvider: Record<string, ModelId[]> = {};
@@ -779,7 +779,7 @@ async function handleListModelsCommand() {
 }
 
 async function handleCheckKeysCommand() {
-    console.log(chalk.bold.blue('🧠 Socius - API Key Check\n'));
+    console.log(chalk.bold.blue('🧠 socius - API Key Check\n'));
 
     const keyCheck = checkApiKeys();
 
@@ -808,7 +808,7 @@ async function handleCheckKeysCommand() {
 }
 
 async function handleCreatePromptCommand() {
-    console.log(chalk.bold.blue('🧠 Socius - Create New Prompt\n'));
+    console.log(chalk.bold.blue('🧠 socius - Create New Prompt\n'));
 
     // Get the list of existing categories (directories in prompts folder)
     const promptsDir = path.join(process.cwd(), 'prompts');
