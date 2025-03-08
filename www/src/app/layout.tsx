@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 import type React from "react";
+import { Nav } from "../components/nav";
 import { ThemeProvider } from "../components/theme-provider";
 import { siteConfig } from "../config/site";
 import "./globals.css";
@@ -66,7 +67,12 @@ export default function RootLayout({
 			<body className={`${spaceMono.variable}`}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<div className="min-h-screen bg-background text-black dark:text-white font-mono text-sm">
-						<div className="max-w-4xl mx-auto p-4">
+						<div className="max-w-4xl mx-auto p-4 space-y-4">
+							{/* Navigation Box */}
+							<div className="border border-black dark:border-white">
+								<Nav />
+							</div>
+							{/* Content Box */}
 							<div className="border border-black dark:border-white">
 								{children}
 							</div>
