@@ -7,7 +7,7 @@ import { CustomLink } from "./ui/custom-link";
 export default function HomePage() {
 	// Update this value when the page changes
 	// Use explicit year, month (0-based), day parameters to avoid timezone issues
-	const lastUpdated = new Date(2025, 2, 1); // March is month 2 (0-based index)
+	const lastUpdated = new Date(2025, 2, 8); // March is month 2 (0-based index)
 
 	const formattedDate = new Intl.DateTimeFormat(undefined, {
 		year: "numeric",
@@ -46,16 +46,29 @@ export default function HomePage() {
 				</p>
 			</div>
 
-			{/* mission section */}
+			{/* what section */}
 			<div className="border-b border-black dark:border-white p-6">
 				<div className="flex flex-col md:flex-row">
 					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
-						<p className="text-secondary font-medium">mission</p>
+						<p className="text-secondary font-medium">what</p>
+					</div>
+					<div className="w-full md:w-3/4">
+						<p>a collection of prompts on real-world important human issues</p>
+					</div>
+				</div>
+			</div>
+
+			{/* why section */}
+			<div className="border-b border-black dark:border-white p-6">
+				<div className="flex flex-col md:flex-row">
+					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
+						<p className="text-secondary font-medium">why</p>
 					</div>
 					<div className="w-full md:w-3/4">
 						<p>
-							to further ai evaluations by focusing on how it makes decisions to
-							solve real world human issues; for the betterment of society
+							as ai gets better and is further integrated into our lives, it
+							gets more important to understand how it converges on decisions,
+							thinks, and understands humanity.
 						</p>
 					</div>
 				</div>
@@ -69,8 +82,8 @@ export default function HomePage() {
 					</div>
 					<div className="w-full md:w-3/4">
 						<p>
-							create novel benchmarks that help humans evaluate ai when asked to
-							solve complex human challenges
+							create novel situations to drop ai into to display its "thinking"
+							process
 						</p>
 						<ul className="list-disc pl-5 mt-4 space-y-2">
 							<li>humanity-centered topics</li>
@@ -78,22 +91,6 @@ export default function HomePage() {
 							<li>societal implications</li>
 							<li>future focused</li>
 						</ul>
-					</div>
-				</div>
-			</div>
-
-			{/* approach section */}
-			<div className="border-b border-black dark:border-white p-6">
-				<div className="flex flex-col md:flex-row">
-					<div className="w-full md:w-1/4 mb-2 md:mb-0 md:pr-4">
-						<p className="text-secondary font-medium">approach</p>
-					</div>
-					<div className="w-full md:w-3/4">
-						<p>
-							offer evaluation methods that measure different angles of ai's
-							capacity to understand, respond to, and help address intricate
-							societal matters with nuance, empathy, and ethical consideration
-						</p>
 					</div>
 				</div>
 			</div>
