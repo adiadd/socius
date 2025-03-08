@@ -79,6 +79,61 @@ const result = await runPrompt(
 console.log(result);
 ```
 
+## Using the CLI
+
+socius now includes a command-line interface for easier interaction:
+
+```bash
+# Run the CLI in interactive mode (default)
+bun start
+
+# Or run specific commands
+bun run cli -- [command]
+
+# If installed globally
+socius [command]
+```
+
+The interactive mode provides a menu-driven interface that stays active until you choose to exit:
+
+```bash
+# Start interactive mode explicitly
+bun run cli -- interactive
+
+# Or simply (interactive is the default when no command is specified)
+bun run cli
+```
+
+Available commands:
+
+- `run`: Run a specific prompt or all prompts
+  ```bash
+  bun run cli -- run --prompt prompts/ethics/trolley-problem.md --model gpt-4
+  bun run cli -- run --all --model gpt-4
+  # Or use the interactive mode
+  bun run cli -- run
+  ```
+
+- `list`: List all available prompts
+  ```bash
+  bun run cli -- list
+  ```
+
+- `models`: List all available models
+  ```bash
+  bun run cli -- models
+  ```
+
+- `check-keys`: Check if API keys are configured
+  ```bash
+  bun run cli -- check-keys
+  ```
+
+- `create`: Create a new prompt file
+  ```bash
+  bun run cli -- create
+  ```
+
 ## Contributing
 
 1. Choose a theme or topic aligned with the project philosophy

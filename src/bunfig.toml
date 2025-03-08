@@ -1,0 +1,16 @@
+[install]
+# Save exact version instead of caret (^) in package.json
+exact = true
+
+# Enable debug logs for troubleshooting
+debug = false
+
+# Whether to install dev dependencies
+dev = true
+
+# Automatically update the lockfile
+lockfile = true
+
+[test]
+# Default environment for testing
+environment = "node" 
