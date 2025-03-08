@@ -5,7 +5,18 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import { runClaudePrompt } from '../models/anthropic';
-import { ModelConfig, defaultModel, modelConfigs } from '../models/config';
+import {
+    AnthropicModelId,
+    defaultModel,
+    GoogleModelId,
+    isAnthropicConfig,
+    isGoogleConfig,
+    isOpenAIConfig,
+    ModelConfig,
+    modelConfigs,
+    ModelId,
+    OpenAIModelId
+} from '../models/config';
 import { runGeminiPrompt } from '../models/google';
 import { runOpenAIPrompt } from '../models/openai';
 
@@ -22,7 +33,7 @@ interface PromptContent {
 }
 
 interface RunResult {
-    modelId: string;
+    modelId: ModelId;
     modelConfig: ModelConfig;
     promptPath: string;
     promptContent: PromptContent;
@@ -58,7 +69,7 @@ export function parsePromptFile(filePath: string): PromptContent {
  */
 export async function runPrompt(
     promptPath: string,
-    modelId: string = defaultModel,
+    modelId: ModelId = defaultModel,
     apiKeys: Record<string, string>
 ): Promise<RunResult> {
     const modelConfig = modelConfigs[modelId];
@@ -74,30 +85,29 @@ export async function runPrompt(
 
     // Run the appropriate model
     let response;
-    switch (modelConfig.provider.toLowerCase()) {
-        case 'openai':
-            response = await runOpenAIPrompt(
-                promptContent.content,
-                modelConfig,
-                apiKeys.openai
-            );
-            break;
-        case 'anthropic':
-            response = await runClaudePrompt(
-                promptContent.content,
-                modelConfig,
-                apiKeys.anthropic
-            );
-            break;
-        case 'google':
-            response = await runGeminiPrompt(
-                promptContent.content,
-                modelConfig,
-                apiKeys.google
-            );
-            break;
-        default:
-            throw new Error(`Unsupported model provider: ${modelConfig.provider}`);
+    if (isOpenAIConfig(modelConfig)) {
+        response = await runOpenAIPrompt(
+            promptContent.content,
+            modelConfig,
+            modelId as OpenAIModelId,
+            apiKeys.openai
+        );
+    } else if (isAnthropicConfig(modelConfig)) {
+        response = await runClaudePrompt(
+            promptContent.content,
+            modelConfig,
+            modelId as AnthropicModelId,
+            apiKeys.anthropic
+        );
+    } else if (isGoogleConfig(modelConfig)) {
+        response = await runGeminiPrompt(
+            promptContent.content,
+            modelConfig,
+            modelId as GoogleModelId,
+            apiKeys.google
+        );
+    } else {
+        throw new Error(`Unsupported model provider`);
     }
 
     const elapsedTimeMs = Date.now() - startTime;

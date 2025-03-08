@@ -1,7 +1,9 @@
 /**
  * Anthropic Claude model integration
  */
-import { ModelConfig } from './config';
+import Anthropic from '@anthropic-ai/sdk';
+import { MessageParam } from '@anthropic-ai/sdk/resources';
+import { AnthropicModelId, isAnthropicConfig, ModelConfig } from './config';
 
 export interface ClaudeResponse {
     id: string;
@@ -22,6 +24,7 @@ export interface ClaudeResponse {
 export async function runClaudePrompt(
     prompt: string,
     modelConfig: ModelConfig,
+    modelId: AnthropicModelId,
     apiKey: string
 ): Promise<ClaudeResponse> {
     // Skip implementation if no API key is provided
@@ -29,36 +32,49 @@ export async function runClaudePrompt(
         throw new Error('Anthropic API key is required');
     }
 
-    const url = 'https://api.anthropic.com/v1/messages';
+    // Ensure we have an Anthropic model config
+    if (!isAnthropicConfig(modelConfig)) {
+        throw new Error(`Invalid model configuration for Anthropic: ${modelConfig.provider}`);
+    }
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': apiKey,
-                'anthropic-version': '2023-06-01'
-            },
-            body: JSON.stringify({
-                model: modelConfig.version,
-                system: 'You are an AI assistant analyzing human-centered scenarios.',
-                messages: [
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                max_tokens: modelConfig.maxTokens,
-                temperature: modelConfig.temperature
-            })
+        const anthropic = new Anthropic({
+            apiKey: apiKey,
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Anthropic API error: ${response.status} - ${JSON.stringify(errorData)}`);
-        }
+        const messages: MessageParam[] = [
+            {
+                role: 'user',
+                content: prompt
+            }
+        ];
 
-        return await response.json();
+        const response = await anthropic.messages.create({
+            model: modelId,
+            system: 'You are an AI assistant analyzing human-centered scenarios.',
+            messages: messages,
+            max_tokens: modelConfig.maxTokens,
+            temperature: modelConfig.temperature
+        });
+
+        // Convert SDK response to our interface format
+        return {
+            id: response.id,
+            type: response.type,
+            role: response.role,
+            content: response.content
+                .filter(block => block.type === 'text')
+                .map(block => ({
+                    type: block.type,
+                    text: 'text' in block ? block.text : ''
+                })),
+            model: response.model,
+            stop_reason: response.stop_reason || '',
+            usage: {
+                input_tokens: response.usage.input_tokens,
+                output_tokens: response.usage.output_tokens
+            }
+        };
     } catch (error) {
         console.error('Error calling Anthropic API:', error);
         throw error;

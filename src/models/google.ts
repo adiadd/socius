@@ -1,7 +1,7 @@
 /**
  * Implementation of Google's Gemini API integration
  */
-import { ModelConfig } from './config';
+import { GoogleModelId, ModelConfig, isGoogleConfig } from './config';
 
 /**
  * Run a prompt using Google's Gemini API
@@ -14,10 +14,16 @@ import { ModelConfig } from './config';
 export async function runGeminiPrompt(
     prompt: string,
     modelConfig: ModelConfig,
+    modelId: GoogleModelId,
     apiKey: string
 ): Promise<any> {
     if (!apiKey) {
         throw new Error('Google API key is required');
+    }
+
+    // Ensure we have a Google model config
+    if (!isGoogleConfig(modelConfig)) {
+        throw new Error(`Invalid model configuration for Google: ${modelConfig.provider}`);
     }
 
     try {
@@ -30,7 +36,7 @@ export async function runGeminiPrompt(
 
         // Get the model specified in the configuration
         const model = genAI.getGenerativeModel({
-            model: modelConfig.version,
+            model: modelId,
             generationConfig: {
                 maxOutputTokens: modelConfig.maxTokens,
                 temperature: modelConfig.temperature,
@@ -51,7 +57,7 @@ export async function runGeminiPrompt(
                 output_tokens: null,
                 total_tokens: null
             },
-            model: modelConfig.version,
+            model: modelId,
             // Add any additional response data as needed
             raw_response: response
         };

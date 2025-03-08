@@ -20,7 +20,7 @@
  */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import { modelIds } from './models/config';
+import { ModelId, defaultModel, modelIds } from './models/config';
 import { listAllPrompts, runPrompt } from './utils/prompt-runner';
 
 // Load environment variables from .env file
@@ -56,7 +56,7 @@ async function main() {
 
     // Run all prompts if requested
     if (args[0] === 'run-all') {
-        const modelId = args[1] || 'gpt-4'; // Default to GPT-4 if not specified
+        const modelId = (args[1] as ModelId) || defaultModel;
         console.log(`Running all prompts with model: ${modelId}`);
 
         const prompts = listAllPrompts();
@@ -68,7 +68,7 @@ async function main() {
             console.log(`\n[${i + 1}/${prompts.length}] Running prompt: ${relativePath}`);
 
             try {
-                const result = await runPrompt(promptPath, modelId, apiKeys);
+                const result = await runPrompt(promptPath, modelId as ModelId, apiKeys);
 
                 console.log(`- Model: ${result.modelConfig.name}`);
                 console.log(`- Time: ${result.elapsedTimeMs / 1000}s`);
@@ -118,7 +118,7 @@ async function main() {
     }
 
     const promptPath = args[0];
-    const modelId = args[1] || 'gpt-4'; // Default to GPT-4 if not specified
+    const modelId = (args[1] as ModelId) || defaultModel;
 
     try {
         console.log(`Running prompt: ${promptPath}`);
