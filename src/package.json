@@ -4,11 +4,10 @@
   "description": "Anthropocentric scenarios for AI",
   "main": "run-prompt.ts",
   "scripts": {
-    "start": "ts-node run-prompt.ts",
-    "list": "ts-node run-prompt.ts list",
-    "models": "ts-node run-prompt.ts models",
-    "run": "ts-node run-prompt.ts",
-    "run-all": "ts-node run-prompt.ts run-all"
+    "run-prompt": "ts-node run-prompt.ts",
+    "list-prompts": "ts-node run-prompt.ts list",
+    "list-models": "ts-node run-prompt.ts models",
+    "run-all-prompts": "ts-node run-prompt.ts run-all"
   },
   "keywords": [
     "ai",

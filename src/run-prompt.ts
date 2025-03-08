@@ -5,6 +5,14 @@
  * Usage:
  * ts-node run-prompt.ts <prompt-path> [model-id]
  * ts-node run-prompt.ts run-all [model-id]
+ * ts-node run-prompt.ts list
+ * ts-node run-prompt.ts models
+ * 
+ * Or using npm scripts:
+ * npm run run-prompt -- <prompt-path> [model-id]
+ * npm run run-all-prompts [model-id]
+ * npm run list-prompts
+ * npm run list-models
  * 
  * Example:
  * ts-node run-prompt.ts prompts/ethics/trolley-problem.md gpt-4
@@ -96,10 +104,16 @@ async function main() {
 
     // Check for required arguments
     if (args.length < 1) {
-        console.log('Usage: ts-node run-prompt.ts <prompt-path> [model-id]');
-        console.log('       ts-node run-prompt.ts run-all [model-id]');
-        console.log('       ts-node run-prompt.ts list');
-        console.log('       ts-node run-prompt.ts models');
+        console.log('Usage:');
+        console.log('  ts-node run-prompt.ts <prompt-path> [model-id]  - Run a specific prompt');
+        console.log('  ts-node run-prompt.ts run-all [model-id]        - Run all prompts');
+        console.log('  ts-node run-prompt.ts list                      - List available prompts');
+        console.log('  ts-node run-prompt.ts models                    - List available models');
+        console.log('\nOr using npm scripts:');
+        console.log('  npm run run-prompt -- <prompt-path> [model-id]');
+        console.log('  npm run run-all-prompts [model-id]');
+        console.log('  npm run list-prompts');
+        console.log('  npm run list-models');
         return;
     }
 
