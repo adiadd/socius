@@ -1,0 +1,29 @@
+{
+  "name": "socius",
+  "version": "0.1.0",
+  "description": "Anthropocentric scenarios for AI",
+  "main": "run-prompt.ts",
+  "scripts": {
+    "start": "ts-node run-prompt.ts",
+    "list": "ts-node run-prompt.ts list",
+    "models": "ts-node run-prompt.ts models",
+    "run": "ts-node run-prompt.ts"
+  },
+  "keywords": [
+    "ai",
+    "prompt",
+    "ethics",
+    "society",
+    "anthropocentric"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "yaml": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5"
+  }
+}
