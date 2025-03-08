@@ -26,10 +26,10 @@ export const modelConfigs: Record<string, ModelConfig> = {
         maxTokens: 4000,
         temperature: 0.7
     },
-    "gemini-pro": {
-        name: "Gemini Pro",
+    "gemini-2.0-flash": {
+        name: "Gemini 2.0 Flash",
         provider: "Google",
-        version: "gemini-pro",
+        version: "gemini-2.0-flash",
         maxTokens: 2048,
         temperature: 0.7
     }

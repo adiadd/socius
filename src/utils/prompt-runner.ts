@@ -6,6 +6,7 @@ import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import { runClaudePrompt } from '../models/anthropic';
 import { ModelConfig, defaultModel, modelConfigs } from '../models/config';
+import { runGeminiPrompt } from '../models/google';
 import { runOpenAIPrompt } from '../models/openai';
 
 interface PromptMetadata {
@@ -86,6 +87,13 @@ export async function runPrompt(
                 promptContent.content,
                 modelConfig,
                 apiKeys.anthropic
+            );
+            break;
+        case 'google':
+            response = await runGeminiPrompt(
+                promptContent.content,
+                modelConfig,
+                apiKeys.google
             );
             break;
         default:
