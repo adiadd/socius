@@ -14,7 +14,7 @@ import { Metadata } from "next";
 import { siteConfig } from "../../config/site";
 
 export const generateMetadata = (): Metadata => {
-  const title = "Your Page Title | " + siteConfig.name;
+  const title = "Your Page Title / " + siteConfig.name;
   // Use the long description for SEO
   const description = siteConfig.description.long;
   

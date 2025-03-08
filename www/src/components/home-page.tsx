@@ -1,7 +1,6 @@
-import { BrainCircuit, Github, Twitter } from "lucide-react";
+import { Github, Twitter } from "lucide-react";
 import { siteConfig } from "../config/site";
 import { OrganizationJsonLd } from "./schema/organization-schema";
-import { ThemeToggle } from "./theme-toggle";
 import { CustomLink } from "./ui/custom-link";
 
 export default function HomePage() {
@@ -24,27 +23,6 @@ export default function HomePage() {
 		<>
 			{/* Add Schema.org structured data */}
 			<OrganizationJsonLd />
-
-			{/* header section */}
-			<div className="border-b border-black dark:border-white p-6">
-				<div className="flex items-center justify-between">
-					<div className="flex items-center gap-3">
-						<BrainCircuit className="h-6 w-6" />
-						<h1 className="text-xl">socius</h1>
-					</div>
-					<ThemeToggle />
-				</div>
-				<p className="mt-2 text-muted-foreground">
-					<CustomLink
-						href="https://www.merriam-webster.com/dictionary/anthropocentric"
-						external={true}
-						showExternalIndicator={true}
-					>
-						anthropocentric
-					</CustomLink>{" "}
-					scenarios for ai
-				</p>
-			</div>
 
 			{/* what section */}
 			<div className="border-b border-black dark:border-white p-6">
