@@ -1,22 +1,22 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env bun
 /**
  * Script to run a prompt through a model from the command line
  * 
  * Usage:
- * ts-node run-prompt.ts <prompt-path> [model-id]
- * ts-node run-prompt.ts run-all [model-id]
- * ts-node run-prompt.ts list
- * ts-node run-prompt.ts models
+ * bun run run-prompt.ts <prompt-path> [model-id]
+ * bun run run-prompt.ts run-all [model-id]
+ * bun run run-prompt.ts list
+ * bun run run-prompt.ts models
  * 
- * Or using npm scripts:
- * npm run run-prompt -- <prompt-path> [model-id]
- * npm run run-all-prompts [model-id]
- * npm run list-prompts
- * npm run list-models
+ * Or using bun scripts:
+ * bun run run-prompt -- <prompt-path> [model-id]
+ * bun run run-all-prompts [model-id]
+ * bun run list-prompts
+ * bun run list-models
  * 
  * Example:
- * ts-node run-prompt.ts prompts/ethics/trolley-problem.md gpt-4
- * ts-node run-prompt.ts run-all gpt-4
+ * bun run run-prompt.ts prompts/ethics/trolley-problem.md gpt-4
+ * bun run run-prompt.ts run-all gpt-4
  */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -105,15 +105,15 @@ async function main() {
     // Check for required arguments
     if (args.length < 1) {
         console.log('Usage:');
-        console.log('  ts-node run-prompt.ts <prompt-path> [model-id]  - Run a specific prompt');
-        console.log('  ts-node run-prompt.ts run-all [model-id]        - Run all prompts');
-        console.log('  ts-node run-prompt.ts list                      - List available prompts');
-        console.log('  ts-node run-prompt.ts models                    - List available models');
-        console.log('\nOr using npm scripts:');
-        console.log('  npm run run-prompt -- <prompt-path> [model-id]');
-        console.log('  npm run run-all-prompts [model-id]');
-        console.log('  npm run list-prompts');
-        console.log('  npm run list-models');
+        console.log('  bun run run-prompt.ts <prompt-path> [model-id]  - Run a specific prompt');
+        console.log('  bun run run-prompt.ts run-all [model-id]        - Run all prompts');
+        console.log('  bun run run-prompt.ts list                      - List available prompts');
+        console.log('  bun run run-prompt.ts models                    - List available models');
+        console.log('\nOr using bun scripts:');
+        console.log('  bun run run-prompt -- <prompt-path> [model-id]');
+        console.log('  bun run run-all-prompts [model-id]');
+        console.log('  bun run list-prompts');
+        console.log('  bun run list-models');
         return;
     }
 
