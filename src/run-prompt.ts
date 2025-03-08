@@ -8,9 +8,13 @@
  * Example:
  * ts-node run-prompt.ts prompts/ethics/trolley-problem.md gpt-4
  */
+import * as dotenv from 'dotenv';
 import * as path from 'path';
-import { modelIds } from '../models/config';
-import { listAllPrompts, runPrompt } from '../utils/prompt-runner';
+import { modelIds } from './models/config';
+import { listAllPrompts, runPrompt } from './utils/prompt-runner';
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Get API keys from environment variables
 const apiKeys = {
