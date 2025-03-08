@@ -1,7 +1,8 @@
 /**
  * OpenAI model integration
  */
-import { ModelConfig } from './config';
+import OpenAI from 'openai';
+import { isOpenAIConfig, ModelConfig, OpenAIModelId } from './config';
 
 export interface OpenAIResponse {
     id: string;
@@ -25,6 +26,7 @@ export interface OpenAIResponse {
 export async function runOpenAIPrompt(
     prompt: string,
     modelConfig: ModelConfig,
+    modelId: OpenAIModelId,
     apiKey: string
 ): Promise<OpenAIResponse> {
     // Skip implementation if no API key is provided
@@ -32,38 +34,51 @@ export async function runOpenAIPrompt(
         throw new Error('OpenAI API key is required');
     }
 
-    const url = 'https://api.openai.com/v1/chat/completions';
+    // Ensure we have an OpenAI model config
+    if (!isOpenAIConfig(modelConfig)) {
+        throw new Error(`Invalid model configuration for OpenAI: ${modelConfig.provider}`);
+    }
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: modelConfig.version,
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'You are an AI assistant analyzing human-centered scenarios.'
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                max_tokens: modelConfig.maxTokens,
-                temperature: modelConfig.temperature
-            })
+        const openai = new OpenAI({
+            apiKey: apiKey,
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`OpenAI API error: ${response.status} - ${JSON.stringify(errorData)}`);
-        }
+        const response = await openai.chat.completions.create({
+            model: modelId,
+            messages: [
+                {
+                    role: 'system',
+                    content: 'You are an AI assistant analyzing human-centered scenarios.'
+                },
+                {
+                    role: 'user',
+                    content: prompt
+                }
+            ],
+            max_tokens: modelConfig.maxTokens,
+            temperature: modelConfig.temperature
+        });
 
-        return await response.json();
+        // Convert SDK response to our interface format
+        return {
+            id: response.id,
+            model: response.model,
+            created: response.created,
+            choices: response.choices.map(choice => ({
+                index: choice.index,
+                message: {
+                    role: choice.message.role,
+                    content: choice.message.content || ''
+                },
+                finish_reason: choice.finish_reason || ''
+            })),
+            usage: response.usage || {
+                prompt_tokens: 0,
+                completion_tokens: 0,
+                total_tokens: 0
+            }
+        };
     } catch (error) {
         console.error('Error calling OpenAI API:', error);
         throw error;
