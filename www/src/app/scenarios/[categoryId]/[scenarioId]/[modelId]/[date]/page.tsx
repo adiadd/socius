@@ -2,6 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
 import { getScenarioResult } from "../../../../../../lib/server-utils";
 import { extractModelResponseContent, formatDate } from "../../../../../../lib/utils";
 
@@ -70,15 +73,20 @@ export default async function ScenarioResultPage({ params }: ScenarioResultPageP
                 </p>
             </div>
 
-            {/* Content section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Content section - now vertical layout */}
+            <div className="flex flex-col gap-8">
                 {/* Prompt section */}
                 <div>
                     <h2 className="text-lg font-medium mb-4">Prompt</h2>
-                    <div className="border border-black dark:border-white p-4">
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <div className="border border-black dark:border-white p-6 rounded-md bg-gray-50 dark:bg-gray-900 shadow-sm">
+                        <div className="prose prose-md dark:prose-invert max-w-none 
+                            prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 
+                            prose-pre:p-4 prose-pre:rounded-md 
+                            prose-code:text-red-500 dark:prose-code:text-red-400">
                             {/* Display the prompt content as markdown */}
-                            <div dangerouslySetInnerHTML={{ __html: result.promptContent.content.replace(/\\n/g, '<br/>') }} />
+                            <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+                                {result.promptContent.content}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 </div>
@@ -86,10 +94,15 @@ export default async function ScenarioResultPage({ params }: ScenarioResultPageP
                 {/* Response section */}
                 <div>
                     <h2 className="text-lg font-medium mb-4">Response</h2>
-                    <div className="border border-black dark:border-white p-4">
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
-                            {/* Display the response content */}
-                            <div dangerouslySetInnerHTML={{ __html: responseContent.replace(/\\n/g, '<br/>') }} />
+                    <div className="border border-black dark:border-white p-6 rounded-md bg-gray-50 dark:bg-gray-900 shadow-sm">
+                        <div className="prose prose-md dark:prose-invert max-w-none 
+                            prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 
+                            prose-pre:p-4 prose-pre:rounded-md 
+                            prose-code:text-blue-500 dark:prose-code:text-blue-400">
+                            {/* Display the response content as markdown */}
+                            <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+                                {responseContent}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 </div>
@@ -98,7 +111,7 @@ export default async function ScenarioResultPage({ params }: ScenarioResultPageP
             {/* Model config section */}
             <div className="mt-8">
                 <h2 className="text-lg font-medium mb-4">Model Configuration</h2>
-                <div className="border border-black dark:border-white p-4">
+                <div className="border border-black dark:border-white p-4 rounded-md bg-gray-50 dark:bg-gray-900 shadow-sm">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                             <p className="text-sm text-muted-foreground">Provider</p>
