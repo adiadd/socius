@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { extractModelResponseContent, formatDate, ModelResult } from "../lib/utils";
 
 interface ScenarioResultCardProps {
@@ -9,6 +12,7 @@ interface ScenarioResultCardProps {
 
 export default function ScenarioResultCard({ result, categoryId, scenarioId }: ScenarioResultCardProps) {
     if (!result) return null;
+    const router = useRouter();
 
     // Extract the date from the timestamp
     const resultDate = formatDate(result.timestamp);
@@ -24,8 +28,21 @@ export default function ScenarioResultCard({ result, categoryId, scenarioId }: S
         ? `${responseContent.substring(0, 150)}...`
         : responseContent;
 
+    const resultUrl = `/scenarios/${categoryId}/${scenarioId}/${result.modelId}/${result.timestamp.split('T')[0]}`;
+
+    const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Prevent navigation if clicking on the link
+        if ((e.target as HTMLElement).closest('a')) {
+            return;
+        }
+        router.push(resultUrl);
+    };
+
     return (
-        <div className="border border-black dark:border-white p-4 hover:bg-accent/10 transition-colors">
+        <div
+            className="border border-black dark:border-white p-4 hover:bg-accent/10 transition-colors cursor-pointer"
+            onClick={handleCardClick}
+        >
             <div className="flex justify-between mb-2">
                 <h4 className="font-medium">{modelName}</h4>
                 <span className="text-sm text-muted-foreground">{provider}</span>
@@ -42,7 +59,7 @@ export default function ScenarioResultCard({ result, categoryId, scenarioId }: S
             </div>
 
             <Link
-                href={`/scenarios/${categoryId}/${scenarioId}/${result.modelId}/${result.timestamp.split('T')[0]}`}
+                href={resultUrl}
             >
                 View full response
             </Link>
