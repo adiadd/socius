@@ -4,13 +4,14 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
-		"build": "next build",
+		"build": "chmod +x scripts/load-results.js && node scripts/load-results.js && next build",
 		"start": "next start",
 		"lint": "bunx biome lint ",
 		"bump-deps": "bunx npm-check-updates --deep -u -x react-day-picker,tailwindcss && bun install",
 		"bump-ui": "bunx shadcn@latest add --all --overwrite -c packages/design-system",
 		"biome:check": "bunx biome check --write .",
-		"biome:format": "biome format --write ."
+		"biome:format": "biome format --write .",
+		"load-results": "node scripts/load-results.js"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^4.1.2",
@@ -57,6 +58,7 @@
 		"react-hook-form": "^7.54.2",
 		"react-resizable-panels": "^2.1.7",
 		"recharts": "2.15.1",
+		"server-only": "^0.0.1",
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.0.2",
 		"tailwindcss-animate": "^1.0.7",
