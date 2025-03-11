@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import type { CollapsibleSectionProps } from "@/types/component-props";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function CollapsibleSection({
 	title,
@@ -15,7 +15,6 @@ export function CollapsibleSection({
 	// Use state with null initial value to prevent hydration mismatch
 	const [isOpen, setIsOpen] = useState<boolean | null>(null);
 	const [isMounted, setIsMounted] = useState(false);
-	const childrenRef = useRef(children);
 
 	// Set the initial state after hydration is complete
 	useEffect(() => {
@@ -23,13 +22,8 @@ export function CollapsibleSection({
 		setIsMounted(true);
 	}, [defaultOpen]);
 
-	// Store the initial children and use that reference to prevent unnecessary reconciliation
-	useEffect(() => {
-		childrenRef.current = children;
-	}, []);
-
 	// Memoize children to maintain reference stability
-	const memoizedChildren = useMemo(() => childrenRef.current, []);
+	const memoizedChildren = useMemo(() => children, [children]);
 
 	return (
 		<div className={cn("w-full", className)}>

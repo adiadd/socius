@@ -1,11 +1,11 @@
+import { getScenarioResults } from "@/lib/server-utils";
+import { formatDate } from "@/lib/utils";
+import type { ModelResultsPageProps } from "@/types/pages";
+import type { ModelResult } from "@/types/scenario-types";
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getScenarioResults } from "../../../../../lib/server-utils";
-import { formatDate } from "../../../../../lib/utils";
-import type { ModelResultsPageProps } from "../../../../../types/pages";
-import type { ModelResult } from "../../../../../types/scenario-types";
 
 export async function generateMetadata({
 	params,

@@ -1,9 +1,9 @@
+import { Nav } from "@/components/nav";
+import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 import type React from "react";
-import { Nav } from "../components/nav";
-import { ThemeProvider } from "../components/theme-provider";
-import { siteConfig } from "../config/site";
 import "./globals.css";
 
 const spaceMono = Space_Mono({

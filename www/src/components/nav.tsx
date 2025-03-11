@@ -1,10 +1,10 @@
 "use client";
 
+import { ThemeToggle } from "@/components/theme-toggle";
+import { CustomLink } from "@/components/ui/custom-link";
 import { BrainCircuit, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ThemeToggle } from "./theme-toggle";
-import { CustomLink } from "./ui/custom-link";
 
 export function Nav() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { ModelResult, ScenarioResult } from "@/types/scenario-types";
 import "server-only";
-import type { ModelResult, ScenarioResult } from "../types/scenario-types";
 
 // Correctly resolve the path to src/results
 function getResultsDir() {

@@ -1,5 +1,5 @@
+import { getSpecificResult } from "@/lib/server-utils";
 import { NextResponse } from "next/server";
-import { getSpecificResult } from "../../../../../../../lib/server-utils";
 
 // GET handler for a specific result
 export async function GET(

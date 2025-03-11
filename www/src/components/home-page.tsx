@@ -1,7 +1,7 @@
+import { OrganizationJsonLd } from "@/components/schema/organization-schema";
+import { CustomLink } from "@/components/ui/custom-link";
+import { siteConfig } from "@/config/site";
 import { Github, Twitter } from "lucide-react";
-import { siteConfig } from "../config/site";
-import { OrganizationJsonLd } from "./schema/organization-schema";
-import { CustomLink } from "./ui/custom-link";
 
 export default function HomePage() {
 	// Update this value when the page changes

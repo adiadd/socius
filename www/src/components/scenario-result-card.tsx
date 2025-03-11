@@ -1,9 +1,9 @@
 "use client";
 
+import { extractModelResponseContent, formatDate } from "@/lib/utils";
+import type { ScenarioResultCardProps } from "@/types/component-props";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { extractModelResponseContent, formatDate } from "../lib/utils";
-import type { ScenarioResultCardProps } from "../types/component-props";
 
 export default function ScenarioResultCard({
 	result,

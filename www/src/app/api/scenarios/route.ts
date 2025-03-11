@@ -1,8 +1,5 @@
+import { getAllResults, getAllScenarioResults } from "@/lib/server-utils";
 import { NextResponse } from "next/server";
-import {
-	getAllResults,
-	getAllScenarioResults,
-} from "../../../lib/server-utils";
 
 // GET handler for all scenarios
 export async function GET() {

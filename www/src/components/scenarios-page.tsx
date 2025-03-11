@@ -1,5 +1,5 @@
+import { getAllScenarioResults } from "@/lib/server-utils";
 import Link from "next/link";
-import { getAllScenarioResults } from "../lib/server-utils";
 
 // This component fetches all scenario categories and renders the page
 export default async function ScenariosPage() {

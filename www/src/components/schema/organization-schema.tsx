@@ -1,5 +1,5 @@
+import { siteConfig } from "@/config/site";
 import Script from "next/script";
-import { siteConfig } from "../../config/site";
 
 export function OrganizationJsonLd() {
 	// Create JSON-LD structured data
