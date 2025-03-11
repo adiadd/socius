@@ -2,6 +2,7 @@
 	"name": "socius",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "chmod +x scripts/load-results.js && node scripts/load-results.js && next build",
