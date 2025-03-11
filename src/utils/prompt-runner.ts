@@ -30,6 +30,7 @@ interface PromptMetadata {
 interface PromptContent {
     metadata: PromptMetadata;
     content: string;
+    formattedPrompt?: string; // The content after applying the template
 }
 
 interface RunResult {
@@ -65,6 +66,35 @@ export function parsePromptFile(filePath: string): PromptContent {
 }
 
 /**
+ * Apply prompt template to a scenario
+ */
+export function applyPromptTemplate(promptContent: PromptContent): string {
+    // Load the template using __dirname to get the absolute path
+    // This ensures we find the template regardless of working directory
+    const templatePath = path.join(__dirname, '..', 'templates', 'prompt-template.md');
+    let template: string;
+
+    try {
+        template = fs.readFileSync(templatePath, 'utf8');
+        // Extract just the template content from between the backticks
+        const templateMatch = template.match(/```\n([\s\S]*?)\n```/);
+        if (templateMatch) {
+            template = templateMatch[1];
+        } else {
+            console.warn("Template format not as expected, using raw template file");
+        }
+    } catch (error) {
+        console.warn("Prompt template not found, using default format");
+        return promptContent.content;
+    }
+
+    // Replace placeholders with actual content
+    return template
+        .replace('[SCENARIO_TITLE]', promptContent.metadata.title)
+        .replace('[SCENARIO_CONTENT]', promptContent.content);
+}
+
+/**
  * Run a prompt through a specified model
  */
 export async function runPrompt(
@@ -83,25 +113,28 @@ export async function runPrompt(
     // Measure execution time
     const startTime = Date.now();
 
+    // Apply the prompt template
+    const formattedPrompt = applyPromptTemplate(promptContent);
+
     // Run the appropriate model
     let response;
     if (isOpenAIConfig(modelConfig)) {
         response = await runOpenAIPrompt(
-            promptContent.content,
+            formattedPrompt,
             modelConfig,
             modelId as OpenAIModelId,
             apiKeys.openai
         );
     } else if (isAnthropicConfig(modelConfig)) {
         response = await runClaudePrompt(
-            promptContent.content,
+            formattedPrompt,
             modelConfig,
             modelId as AnthropicModelId,
             apiKeys.anthropic
         );
     } else if (isGoogleConfig(modelConfig)) {
         response = await runGeminiPrompt(
-            promptContent.content,
+            formattedPrompt,
             modelConfig,
             modelId as GoogleModelId,
             apiKeys.google
@@ -117,7 +150,11 @@ export async function runPrompt(
         modelId,
         modelConfig,
         promptPath,
-        promptContent,
+        promptContent: {
+            ...promptContent,
+            // Store the formatted prompt that was actually sent to the model
+            formattedPrompt
+        },
         response,
         timestamp: new Date().toISOString(),
         elapsedTimeMs
@@ -136,7 +173,8 @@ function saveResult(result: RunResult): string {
     const { promptPath, modelId, timestamp } = result;
 
     // Extract relative path from the prompts directory
-    const promptsDir = path.join(process.cwd(), 'prompts');
+    // Use __dirname to get absolute path regardless of working directory
+    const promptsDir = path.join(__dirname, '..', 'prompts');
     const relativePath = path.relative(promptsDir, promptPath);
     const relativeDir = path.dirname(relativePath);
 
@@ -145,7 +183,8 @@ function saveResult(result: RunResult): string {
 
     // Create directory if it doesn't exist
     const resultDir = path.join(
-        process.cwd(),
+        __dirname,
+        '..',
         'results',
         relativeDir,  // Preserve the subdirectory structure (e.g., 'ethics')
         scenarioName,
@@ -170,7 +209,8 @@ function saveResult(result: RunResult): string {
  * Get a list of all prompts in the prompts directory
  */
 export function listAllPrompts(): string[] {
-    const promptsDir = path.join(process.cwd(), 'prompts');
+    // Use __dirname to get absolute path regardless of working directory
+    const promptsDir = path.join(__dirname, '..', 'prompts');
     const promptFiles: string[] = [];
 
     function traverseDir(dir: string) {

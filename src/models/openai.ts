@@ -48,10 +48,6 @@ export async function runOpenAIPrompt(
             model: modelId,
             messages: [
                 {
-                    role: 'system',
-                    content: 'You are an AI assistant analyzing human-centered scenarios.'
-                },
-                {
                     role: 'user',
                     content: prompt
                 }

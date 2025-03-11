@@ -51,7 +51,6 @@ export async function runClaudePrompt(
 
         const response = await anthropic.messages.create({
             model: modelId,
-            system: 'You are an AI assistant analyzing human-centered scenarios.',
             messages: messages,
             max_tokens: modelConfig.maxTokens,
             temperature: modelConfig.temperature
