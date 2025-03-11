@@ -90,12 +90,12 @@ export default async function ScenarioPage({ params }: ScenarioPageProps) {
                                     <Link
                                         key={modelId}
                                         href={`/scenarios/${categoryId}/${scenarioId}/${modelId}/${date}`}
-                                        className="border border-black dark:border-white p-4 hover:bg-accent/10 transition-colors"
+                                        className="block border border-black dark:border-white p-4 hover:bg-accent/10 transition-colors no-underline"
                                     >
                                         <div className="flex justify-between mb-2">
                                             <h4 className="font-medium">{result.modelConfig?.name || modelId}</h4>
                                         </div>
-                                        <p className="text-sm text-muted-foreground mb-2">
+                                        <p className="text-sm text-muted-foreground mb-2 no-underline">
                                             {result.modelConfig?.provider || 'Unknown provider'}
                                         </p>
                                         <p className="text-sm">
